@@ -1,0 +1,7 @@
+{
+  "name": "SewManyProjects",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
