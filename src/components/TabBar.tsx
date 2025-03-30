@@ -1,5 +1,5 @@
 import { IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
-import { triangle, ellipse, square } from "ionicons/icons";
+import { homeOutline, personOutline, informationOutline } from "ionicons/icons";
 
 interface Props {
     loggedIn: boolean
@@ -12,15 +12,15 @@ const TabBar = ({ loggedIn }: Props) => {
 
     return (<IonTabBar slot="bottom">
         <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
+            <IonIcon aria-hidden="true" icon={homeOutline} />
             <IonLabel>Home</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
+            <IonIcon aria-hidden="true" icon={personOutline} />
             <IonLabel>Profile</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
+            <IonIcon aria-hidden="true" icon={informationOutline} />
             <IonLabel>About</IonLabel>
         </IonTabButton>
     </IonTabBar>

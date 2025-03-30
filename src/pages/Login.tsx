@@ -39,7 +39,7 @@ const Login: React.FC = () => {
             <IonContent className="ion-padding">
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">Login</IonTitle>
+                        <IonTitle size="large" padding-bottom>Login</IonTitle>
                     </IonToolbar>
                 </IonHeader>
                 <IonInput placeholder='Username' onIonChange={(e: any) => setUsername(e.target.value)} />

@@ -1,5 +1,4 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { logOut } from '../firebaseConfig';
 
@@ -17,8 +16,8 @@ const Tab1: React.FC = () => {
             <IonTitle size="large">Home</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
-        <ExploreContainer name="Tab 1 page" />
+        <IonButton expand="block" className='ion-padding' onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
+        <p className="ion-padding"> This is the home page where information to get started will be stored. </p>
       </IonContent>
     </IonPage>
   );

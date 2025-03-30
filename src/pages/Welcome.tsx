@@ -9,13 +9,13 @@ const Welcome: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        <IonHeader collapse="condense" padding-bottom>
           <IonToolbar>
-            <IonTitle size="large">Welcome</IonTitle>
+            <IonTitle size="large">Welcome to the app!</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton routerLink="/login">Login</IonButton>
-        <IonButton routerLink="/register" color="secondary">Register</IonButton>
+        <IonButton expand="block" className='ion-padding' routerLink="/login">Login</IonButton>
+        <IonButton expand="block" className='ion-padding' routerLink="/register" color="secondary">Register</IonButton>
       </IonContent>
     </IonPage>
   );
