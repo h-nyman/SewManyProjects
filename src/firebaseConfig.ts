@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const config = {
     apiKey: "AIzaSyAGIZtGEXpEqvN87O-pKcBIfKXP9suIJ28",
@@ -43,4 +43,8 @@ export async function createUser(username: string, password: string) {
         return false
     }
     
+}
+
+export function logOut() {
+    signOut(auth)
 }

@@ -1,7 +1,8 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../firebaseConfig'
+import { loginUser, logOut } from '../firebaseConfig'
+import useAuthState from '../useAuthState';
 
 const Login: React.FC = () => {
 
@@ -11,14 +12,20 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('')
 
     const [present] = useIonToast()
+    const authState = useAuthState()
 
     async function login() {
         setBusy(true)
         const res = await loginUser(username, password)
         present({
-            message: `${res ? 'Login success' : 'Login failed'}`
+            message: `${res ? 'Login success' : 'Login failed'}`,
+            duration: 3000
         })
         setBusy(false)
+    }
+
+    if (authState.user) {
+        return <IonButton onClick={logOut}>Sign out</IonButton>
     }
 
     return (

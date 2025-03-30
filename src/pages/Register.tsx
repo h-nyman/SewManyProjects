@@ -15,12 +15,12 @@ const Register: React.FC = () => {
 
     async function registerUser() {
         if (password !== cpassword) {
-            present({message:"Passwords don't match"})
+            present({message:"Passwords don't match", duration: 3000})
             return
         }
         setBusy(true)
         const res = await createUser(username, password)
-        present({message:`${res ? 'Register success' : 'Register failed'}`})
+        present({message:`${res ? 'Register success' : 'Register failed'}`, duration: 3000})
         setBusy(false)
     }
 

@@ -44,12 +44,13 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import TabBar from './components/TabBar';
 import "./firebaseConfig";
+import useAuthState from './useAuthState';
 
 setupIonicReact();
 
 const App: React.FC = () => {
 
-  const loggedIn=false
+  const authState = useAuthState()
 
   return (
     <IonApp>
@@ -72,7 +73,7 @@ const App: React.FC = () => {
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
           </IonRouterOutlet>
-          <TabBar loggedIn={loggedIn} />
+          <TabBar loggedIn={authState.user} />
         </IonTabs>
       </IonReactRouter>
     </IonApp>
