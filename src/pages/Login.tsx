@@ -1,5 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import {useState} from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('')
@@ -22,9 +23,13 @@ const Login: React.FC = () => {
                         <IonTitle size="large">Login</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonInput placeholder='Username?' onIonChange={(e: any) => setUsername(e.target.value)} />
-                <IonInput placeholder='Password?' onIonChange={(e: any) => setPassword(e.target.value)} />
+                <IonInput placeholder='Username' onIonChange={(e: any) => setUsername(e.target.value)} />
+                <IonInput type="password" placeholder='Password' onIonChange={(e: any) => setPassword(e.target.value)} />
                 <IonButton onClick={loginUser}>Login</IonButton>
+
+                <p>
+                    New here? <Link to={`register`}>Register a New Account</Link>
+                </p>
             </IonContent>
         </IonPage>
     );
