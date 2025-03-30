@@ -1,14 +1,20 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createUser } from '../firebaseConfig';
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [cpassword, setCPassword] = useState('')
 
-    function registerUser() {
-        console.log(username, password, cpassword)
+    async function registerUser() {
+        if (password !== cpassword) {
+            alert("Passwords don't match")
+            return
+        }
+        const res = await createUser(username, password)
+        console.log(`${res ? 'Register success' : 'Register failed'}`)
     }
 
     return (
