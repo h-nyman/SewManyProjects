@@ -1,9 +1,12 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../firebaseConfig';
 
 const Register: React.FC = () => {
+
+    const [busy, setBusy] =useState(false)
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [cpassword, setCPassword] = useState('')
@@ -15,8 +18,10 @@ const Register: React.FC = () => {
             present({message:"Passwords don't match"})
             return
         }
+        setBusy(true)
         const res = await createUser(username, password)
         present({message:`${res ? 'Register success' : 'Register failed'}`})
+        setBusy(false)
     }
 
     return (
@@ -26,6 +31,7 @@ const Register: React.FC = () => {
                     <IonTitle>Register</IonTitle>
                 </IonToolbar>
             </IonHeader>
+            <IonLoading message="Please wait..." duration={0} isOpen={busy} />
             <IonContent className="ion-padding">
                 <IonHeader collapse="condense">
                     <IonToolbar>
