@@ -1,5 +1,5 @@
 import { IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
-import { homeOutline, personOutline, informationOutline } from "ionicons/icons";
+import { homeOutline, personOutline, addOutline } from "ionicons/icons";
 
 interface Props {
     loggedIn: boolean
@@ -16,12 +16,12 @@ const TabBar = ({ loggedIn }: Props) => {
             <IonLabel>Home</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={personOutline} />
-            <IonLabel>Profile</IonLabel>
+            <IonIcon aria-hidden="true" icon={addOutline} />
+            <IonLabel>New Project</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={informationOutline} />
-            <IonLabel>About</IonLabel>
+            <IonIcon aria-hidden="true" icon={personOutline} />
+            <IonLabel>Profile</IonLabel>
         </IonTabButton>
     </IonTabBar>
     )

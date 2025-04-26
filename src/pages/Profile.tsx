@@ -1,26 +1,26 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import './Tab1.css';
+import './Tab3.css';
 import { logOut } from '../firebaseConfig';
 
-const Tab1: React.FC = () => {
+const Tab3: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Home</IonTitle>
+            <IonTitle size="large">Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton expand="block" className='ion-padding' onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
-        <p className="ion-padding"> This is the home page where information to get started will be stored. </p>
+        <IonButton className='ion-padding' onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
+        <p className="ion-padding">This is the profile page that will contain information about the user.</p>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Tab1;
+export default Tab3;
