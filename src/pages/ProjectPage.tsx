@@ -1,11 +1,12 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonModal, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
 import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
 import { Project } from './Home';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { pencilOutline, settingsSharp } from 'ionicons/icons';
 
 interface Params { id: string };
 
@@ -15,6 +16,7 @@ const ProjectPage: React.FC = () => {
   const [project, setProject] = useState<Project>();
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -31,14 +33,10 @@ const ProjectPage: React.FC = () => {
   }
 
   function confirm() {
-    modal.current?.dismiss(input.current?.value, 'confirm');
-  }
-
-  function onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
-    if (event.detail.role === 'confirm') {
-      // Assume you're updating the project name, modify as needed
-      setProject(prev => prev ? { ...prev, name: `Hello, ${event.detail.data}!` } : prev);
-    }
+    modal.current?.dismiss(input.current?.value, 'confirm')
+    const projectRef = doc(db, 'users', userId, 'projects', id);
+    updateDoc(projectRef, { name: input.current?.value});
+    setIsOpen(false);
   }
 
   return (
@@ -52,18 +50,32 @@ const ProjectPage: React.FC = () => {
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{project.name}</IonTitle>
+            <IonList>
+              <IonItem>
+                <IonSelect aria-label="Status" placeholder="Select status" value={project.status} onIonChange={event => {
+                  if (userId) {
+                    const projectRef = doc(db, 'users', userId, 'projects', id);
+                    updateDoc(projectRef, { status: event.detail.value })
+                  }
+                }}>
+                  <IonSelectOption value="Planning">Planning</IonSelectOption>
+                  <IonSelectOption value="Ongoing">Ongoing</IonSelectOption>
+                  <IonSelectOption value="Completed">Completed</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+            </IonList>
           </IonToolbar>
         </IonHeader>
-        <IonButton id="open-modal" expand="block">
-          Open
+        <IonButton onClick={() => setIsOpen(true)}>
+          <IonIcon slot="icon-only" icon={pencilOutline} ></IonIcon>
         </IonButton>
-        <IonModal ref={modal} trigger="open-modal" onWillDismiss={(event) => onWillDismiss(event)}>
+        <IonModal ref={modal} isOpen={isOpen}>
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
-                <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
               </IonButtons>
-              <IonTitle>New Project</IonTitle>
+              <IonTitle>Project Name</IonTitle>
               <IonButtons slot="end">
                 <IonButton strong={true} onClick={() => confirm()}>
                   Confirm
@@ -74,11 +86,12 @@ const ProjectPage: React.FC = () => {
           <IonContent className="ion-padding">
             <IonItem>
               <IonInput
-                label="Enter your name"
+                label="Enter project name"
                 labelPlacement="stacked"
                 ref={input}
                 type="text"
-                placeholder="Your name"
+                placeholder="Project name"
+                defaultValue={project.name}
               />
             </IonItem>
           </IonContent>

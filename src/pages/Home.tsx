@@ -71,7 +71,7 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {projects.map((project) => (
-          <ProjectCard imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+          <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
         ))}
       </IonContent>
     </IonPage>
