@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab1.css';
 import ProjectCard from '../components/ProjectCard';
-import { auth, db } from '../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import useAuthState from '../useAuthState';
@@ -10,6 +10,7 @@ export interface Project {
   id: string
   status: 'Planning' | 'Ongoing' | 'Completed'
   name: string
+  ideas: string
 }
 
 const Tab1: React.FC = () => {

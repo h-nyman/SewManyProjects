@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
 import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
@@ -35,10 +35,14 @@ const ProjectPage: React.FC = () => {
   }
 
   function confirm() {
-    modal.current?.dismiss(input.current?.value, 'confirm')
     const projectRef = doc(db, 'users', userId, 'projects', id);
     updateDoc(projectRef, { name: input.current?.value});
     setIsOpen(false);
+  }
+
+  function onIdeasChange(ideas: string) {
+    const projectRef = doc(db, 'users', userId, 'projects', id);
+    updateDoc(projectRef, { ideas });
   }
 
   return (
@@ -93,12 +97,20 @@ const ProjectPage: React.FC = () => {
                 ref={input}
                 type="text"
                 placeholder="Project name"
-                defaultValue={project.name}
+                value={project.name}
               />
             </IonItem>
           </IonContent>
         </IonModal>
-        <p className="ion-padding">This is where you add a new project </p>
+        <IonItem>
+      <IonTextarea
+        placeholder="Type something here"
+        autoGrow={true}
+        value={project.ideas}
+        debounce={1000}
+        onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
+      ></IonTextarea>
+    </IonItem>
       </IonContent>
     </IonPage>
   );
