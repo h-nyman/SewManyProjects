@@ -16,7 +16,7 @@ function useAuthState() {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // Clean up the subscription
+    return () => unsubscribe();
   }, []);
 
   return { user, loading };

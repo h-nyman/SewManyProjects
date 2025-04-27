@@ -4,6 +4,7 @@ import ProjectCard from '../components/ProjectCard';
 import { auth, db } from '../firebaseConfig';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import useAuthState from '../useAuthState';
 
 export interface Project {
   id: string
@@ -15,29 +16,26 @@ const Tab1: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuthState();
+  const userId = user?.uid;
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        setLoading(true);
-        const user = auth.currentUser;
+        if (userId) {
+          setLoading(true);
 
-        if (!user) {
-          setError("Not authenticated.");
-          return;
-        }
+          const projectsCollection = collection(db, 'users', userId, 'projects');
 
-        const userId = user.uid;
-        const projectsCollection = collection(db, 'users', userId, 'projects');
+          const q = query(projectsCollection);
 
-        const q = query(projectsCollection);
-
-        const querySnapshot = await getDocs(q);
-        const projectList: Project[] = [];
-        querySnapshot.forEach((doc) => {
-          projectList.push({ id: doc.id, ...doc.data() } as unknown as Project);
-        });
-        setProjects(projectList);
+          const querySnapshot = await getDocs(q);
+          const projectList: Project[] = [];
+          querySnapshot.forEach((doc) => {
+            projectList.push({ id: doc.id, ...doc.data() } as unknown as Project);
+          });
+          setProjects(projectList);
+        };
       } catch (err: any) {
         setError(err.message);
         console.error("Error fetching projects:", err);
@@ -47,7 +45,7 @@ const Tab1: React.FC = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return <p>Loading projects...</p>;
@@ -61,13 +59,13 @@ const Tab1: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>My projects</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Welcome</IonTitle>
+            <IonTitle size="large">My projects</IonTitle>
           </IonToolbar>
         </IonHeader>
         {projects.map((project) => (

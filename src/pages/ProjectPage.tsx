@@ -3,20 +3,22 @@ import './Tab2.css';
 import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { Project } from './Home';
-import { OverlayEventDetail } from '@ionic/core/components';
-import { pencilOutline, settingsSharp } from 'ionicons/icons';
+import { pencilOutline } from 'ionicons/icons';
+import useAuthState from '../useAuthState';
 
 interface Params { id: string };
 
 const ProjectPage: React.FC = () => {
   const { id } = useParams<Params>();
-  const userId = auth.currentUser?.uid
   const [project, setProject] = useState<Project>();
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuthState();
+  const userId = user?.uid
+
 
   useEffect(() => {
     if (userId) {
