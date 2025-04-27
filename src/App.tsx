@@ -7,7 +7,7 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Tab1 from './pages/Home';
-import Tab2 from './pages/NewProject';
+import ProjectPage from './pages/ProjectPage';
 import Tab3 from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -60,8 +60,8 @@ const App: React.FC = () => {
             <Route exact path="/tab1">
               <Tab1 />
             </Route>
-            <Route exact path="/tab2">
-              <Tab2 />
+            <Route exact path="/projects/:id">
+              <ProjectPage />
             </Route>
             <Route path="/tab3">
               <Tab3 />

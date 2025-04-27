@@ -1,11 +1,37 @@
-import { IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
+import { IonTabBar, IonTabButton, IonIcon, IonLabel, useIonRouter } from "@ionic/react";
 import { homeOutline, personOutline, addOutline } from "ionicons/icons";
+import { auth, db } from "../firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
 
 interface Props {
     loggedIn: boolean
 }
 
 const TabBar = ({ loggedIn }: Props) => {
+    const router = useIonRouter();
+    const addProjectAndNavigate = async () => {
+        try {
+          const user = auth.currentUser;
+          if (user) {
+            const userId = user.uid;
+            const projectsCollection = collection(db, `users/${userId}/projects`);
+      
+            const newProjectData = {
+              name: 'New Project',
+              status: 'Planning'
+            };
+      
+            const docRef = await addDoc(projectsCollection, newProjectData);
+            console.log("Document written with ID: ", docRef.id);
+            router.push(`/projects/${docRef.id}`)
+          } else {
+            console.log("No user is currently logged in.");
+          }
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      }
+      
     if (!loggedIn) {
         return null
     }
@@ -15,7 +41,7 @@ const TabBar = ({ loggedIn }: Props) => {
             <IonIcon aria-hidden="true" icon={homeOutline} />
             <IonLabel>Home</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="tab2" href="/tab2">
+        <IonTabButton tab="tab2" onClick={addProjectAndNavigate}>
             <IonIcon aria-hidden="true" icon={addOutline} />
             <IonLabel>New Project</IonLabel>
         </IonTabButton>

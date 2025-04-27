@@ -1,12 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
+import { useParams } from 'react-router';
 
-const Tab2: React.FC = () => {
+const ProjectPage: React.FC = () => {
+  const {id} = useParams();
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>New Project</IonTitle>
+          <IonTitle>{id}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -21,4 +23,4 @@ const Tab2: React.FC = () => {
   );
 };
 
-export default Tab2;
+export default ProjectPage;
