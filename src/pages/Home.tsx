@@ -5,7 +5,7 @@ import { auth, db } from '../firebaseConfig';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
-interface Project {
+export interface Project {
   id: string
   status: 'Planning' | 'Ongoing' | 'Completed'
   name: string
