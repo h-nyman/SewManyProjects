@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonRow, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
 import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
@@ -36,7 +36,7 @@ const ProjectPage: React.FC = () => {
 
   function confirm() {
     const projectRef = doc(db, 'users', userId, 'projects', id);
-    updateDoc(projectRef, { name: input.current?.value});
+    updateDoc(projectRef, { name: input.current?.value });
     setIsOpen(false);
   }
 
@@ -49,13 +49,38 @@ const ProjectPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/tab1" />
+          </IonButtons>
           <IonTitle>{project.name}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{project.name}</IonTitle>
+            <IonGrid>
+              <IonRow className="ion-align-items-center">
+                <IonCol size="auto">
+                  <IonTitle size="large">{project.name}</IonTitle>
+                </IonCol>
+                <IonCol size="auto">
+                  <IonButton onClick={() => setIsOpen(true)}>
+                    <IonIcon slot="icon-only" icon={pencilOutline} ></IonIcon>
+                  </IonButton>
+                </IonCol>
+              </IonRow>
+              <IonRow className="ion-align-items-center">
+                <IonCol size="auto">
+                  <IonButton size="small">Ideas</IonButton>
+                </IonCol>
+                <IonCol size="auto">
+                <IonButton size="small">To-Do's</IonButton>
+                </IonCol>
+                <IonCol size="auto">
+                <IonButton size="small">Material</IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
             <IonList>
               <IonItem>
                 <IonSelect aria-label="Status" placeholder="Select status" value={project.status} onIonChange={event => {
@@ -72,9 +97,6 @@ const ProjectPage: React.FC = () => {
             </IonList>
           </IonToolbar>
         </IonHeader>
-        <IonButton onClick={() => setIsOpen(true)}>
-          <IonIcon slot="icon-only" icon={pencilOutline} ></IonIcon>
-        </IonButton>
         <IonModal ref={modal} isOpen={isOpen}>
           <IonHeader>
             <IonToolbar>
@@ -103,14 +125,14 @@ const ProjectPage: React.FC = () => {
           </IonContent>
         </IonModal>
         <IonItem>
-      <IonTextarea
-        placeholder="Type something here"
-        autoGrow={true}
-        value={project.ideas}
-        debounce={1000}
-        onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
-      ></IonTextarea>
-    </IonItem>
+          <IonTextarea
+            placeholder="Type something here"
+            autoGrow={true}
+            value={project.ideas}
+            debounce={1000}
+            onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
+          ></IonTextarea>
+        </IonItem>
       </IonContent>
     </IonPage>
   );
