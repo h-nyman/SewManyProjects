@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAvatar, IonButton, IonContent, IonHeader, IonItem, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab3.css';
 import { logOut } from '../firebaseConfig';
 
@@ -16,8 +16,17 @@ const Tab3: React.FC = () => {
             <IonTitle size="large">Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton className='ion-padding' onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
+        <div className="center-container">
+          <IonItem>
+            <IonAvatar className="large-avatar">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </IonAvatar>
+          </IonItem>
+        </div>
         <p className="ion-padding">This is the profile page that will contain information about the user.</p>
+        <div className="center-container">
+          <IonButton className="centered-button" onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
