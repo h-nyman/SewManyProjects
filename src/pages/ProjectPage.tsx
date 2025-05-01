@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonRow, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonRow, IonSegment, IonSegmentButton, IonSegmentContent, IonSegmentView, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab2.css';
 import { useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
@@ -69,17 +69,6 @@ const ProjectPage: React.FC = () => {
                   </IonButton>
                 </IonCol>
               </IonRow>
-              <IonRow className="ion-align-items-center">
-                <IonCol size="auto">
-                  <IonButton size="small">Ideas</IonButton>
-                </IonCol>
-                <IonCol size="auto">
-                <IonButton size="small">To-Do's</IonButton>
-                </IonCol>
-                <IonCol size="auto">
-                <IonButton size="small">Material</IonButton>
-                </IonCol>
-              </IonRow>
             </IonGrid>
             <IonList>
               <IonItem>
@@ -124,15 +113,30 @@ const ProjectPage: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonItem>
-          <IonTextarea
-            placeholder="Type something here"
-            autoGrow={true}
-            value={project.ideas}
-            debounce={1000}
-            onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
-          ></IonTextarea>
-        </IonItem>
+        <IonSegment value="first">
+          <IonSegmentButton value="first" contentId="first">
+            <IonLabel>Ideas</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="second" contentId="second">
+            <IonLabel>To-do's</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="third" contentId="third">
+            <IonLabel>Material</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+        <IonSegmentView>
+          <IonSegmentContent id="first">
+            <IonTextarea
+              placeholder="Type something here"
+              autoGrow={true}
+              value={project.ideas}
+              debounce={1000}
+              onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
+            ></IonTextarea>
+          </IonSegmentContent>
+          <IonSegmentContent id="second">Second</IonSegmentContent>
+          <IonSegmentContent id="third">Third</IonSegmentContent>
+        </IonSegmentView>
       </IonContent>
     </IonPage>
   );
