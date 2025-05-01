@@ -20,7 +20,7 @@ const TabBar = ({ loggedIn }: Props) => {
             const newProjectData: Omit<Project, 'id'> = {
               name: 'New Project',
               status: 'Planning',
-              todos: [],
+              todosMap: {},
               ideas:''
             };
       

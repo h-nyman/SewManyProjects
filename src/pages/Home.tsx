@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import useAuthState from '../useAuthState';
 
 export interface Todo {
-  id: string
   check: boolean
   text: string
 }
@@ -17,7 +16,7 @@ export interface Project {
   status: 'Planning' | 'Ongoing' | 'Completed'
   name: string
   ideas: string
-  todos: Todo[]
+  todosMap: Record<string,Todo>
 }
 
 const Tab1: React.FC = () => {

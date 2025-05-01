@@ -135,7 +135,7 @@ const ProjectPage: React.FC = () => {
             ></IonTextarea>
           </IonSegmentContent>
           <IonSegmentContent id="second">
-            <TodoView todos={project.todos} projectRef={projectRef}></TodoView>
+            <TodoView todosMap={project.todosMap} projectRef={projectRef}></TodoView>
           </IonSegmentContent>
           <IonSegmentContent id="third">Third</IonSegmentContent>
         </IonSegmentView>
