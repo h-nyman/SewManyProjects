@@ -8,6 +8,7 @@ import { Project } from './Home';
 import { pencilOutline } from 'ionicons/icons';
 import useAuthState from '../useAuthState';
 import TodoView from '../components/TodoView';
+import MaterialView from '../components/MaterialView';
 
 interface Params { id: string };
 
@@ -113,7 +114,7 @@ const ProjectPage: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonSegment value={segment} onIonChange={(e)=> setSegment(e.detail.value)}>
+        <IonSegment value={segment} onIonChange={(e)=> setSegment(e.detail.value?.toString() ?? "first")}>
           <IonSegmentButton value="first" contentId="first">
             <IonLabel>Ideas</IonLabel>
           </IonSegmentButton>
@@ -137,7 +138,9 @@ const ProjectPage: React.FC = () => {
           <IonSegmentContent id="second">
             <TodoView todosMap={project.todosMap} projectRef={projectRef}></TodoView>
           </IonSegmentContent>
-          <IonSegmentContent id="third">Third</IonSegmentContent>
+          <IonSegmentContent id="third">
+            <MaterialView materialMap={project.materialMap} projectRef={projectRef}></MaterialView>
+          </IonSegmentContent>
         </IonSegmentView>
       </IonContent>
     </IonPage>

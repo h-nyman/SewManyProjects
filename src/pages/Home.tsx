@@ -11,12 +11,18 @@ export interface Todo {
   text: string
 }
 
+export interface Material {
+  check: boolean
+  text: string
+}
+
 export interface Project {
   id: string
   status: 'Planning' | 'Ongoing' | 'Completed'
   name: string
   ideas: string
   todosMap: Record<string,Todo>
+  materialMap: Record<string,Material>
 }
 
 const Tab1: React.FC = () => {

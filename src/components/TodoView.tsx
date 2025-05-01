@@ -10,7 +10,7 @@ interface Props {
 const TodoView = ({ todosMap, projectRef }: Props) => {
     const addTodo = () => {
         const newTodo: Todo = {
-            text:"hej",
+            text: "",
             check: false
         }
 
@@ -18,26 +18,37 @@ const TodoView = ({ todosMap, projectRef }: Props) => {
             [`todosMap.${Object.keys(todosMap).length}`]: newTodo
         })
     }
-    const toggleComplete = (id:string) => {
+    const toggleComplete = (id: string) => {
         updateDoc(projectRef, {
             [`todosMap.${id}.check`]: !todosMap[id].check
         })
-      };
+    };
 
+    const updateTodoText = (id: string, newText: string) => {
+        updateDoc(projectRef, {
+            [`todosMap.${id}.text`]: newText
+        })
+    };
     return (
         <IonList>
-          {Object.entries(todosMap).map(([id, todo]) => (
-            <IonItem key={id}>
-              <IonCheckbox
-                slot="start"
-                checked={todo.check}
-                onIonChange={() => toggleComplete(id)}
-              />
-                <IonInput value={todo.text} aria-label="todo"></IonInput>
-            </IonItem>)
+            {Object.entries(todosMap).map(([id, todo]) => (
+                <IonItem key={id}>
+                    <IonCheckbox
+                        slot="start"
+                        checked={todo.check}
+                        onIonChange={() => toggleComplete(id)}
+                    />
+                    <IonInput
+                        placeholder="Type here"
+                        debounce={1000}
+                        value={todo.text}
+                        aria-label="todo"
+                        onIonInput={(event) => updateTodoText(id, event.detail.value ?? '')}
+                    ></IonInput>
+                </IonItem>)
             )}
             <IonButton onClick={addTodo}>Add</IonButton>
-        </IonList>
+        </IonList >
     )
 }
 

@@ -21,7 +21,8 @@ const TabBar = ({ loggedIn }: Props) => {
               name: 'New Project',
               status: 'Planning',
               todosMap: {},
-              ideas:''
+              ideas:'',
+              materialMap: {}
             };
       
             const docRef = await addDoc(projectsCollection, newProjectData);

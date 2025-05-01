@@ -1,44 +1,56 @@
 import { IonList, IonItem, IonInput, IonButton, IonCheckbox } from "@ionic/react";
-import { Todo } from "../pages/Home";
+import { Material } from "../pages/Home";
 import { DocumentReference, updateDoc } from "firebase/firestore";
 
 interface Props {
-    todosMap: Record<string, Todo>
+    materialMap: Record<string, Material>
     projectRef: DocumentReference
 }
 
-const TodoView = ({ todosMap, projectRef }: Props) => {
-    const addTodo = () => {
-        const newTodo: Todo = {
-            text:"hej",
+const MaterialView = ({ materialMap, projectRef }: Props) => {
+    const addMaterial = () => {
+        const newMaterial: Material = {
+            text:"",
             check: false
         }
 
         updateDoc(projectRef, {
-            [`todosMap.${Object.keys(todosMap).length}`]: newTodo
+            [`materialMap.${Object.keys(materialMap).length}`]: newMaterial
         })
     }
     const toggleComplete = (id:string) => {
         updateDoc(projectRef, {
-            [`todosMap.${id}.check`]: !todosMap[id].check
+            [`materialMap.${id}.check`]: !materialMap[id].check
         })
       };
 
+      const updateMaterialText = (id: string, newText: string) => {
+        updateDoc(projectRef, {
+            [`materialMap.${id}.text`]: newText
+        })
+    };
+
     return (
         <IonList>
-          {Object.entries(todosMap).map(([id, todo]) => (
+          {Object.entries(materialMap).map(([id, material]) => (
             <IonItem key={id}>
               <IonCheckbox
                 slot="start"
-                checked={todo.check}
+                checked={material.check}
                 onIonChange={() => toggleComplete(id)}
               />
-                <IonInput value={todo.text} aria-label="todo"></IonInput>
+                <IonInput 
+                placeholder="Type here"
+                debounce={1000}
+                value={material.text} 
+                aria-label="material"
+                onIonInput={(event) => updateMaterialText(id, event.detail.value ?? '')}
+                ></IonInput>
             </IonItem>)
             )}
-            <IonButton onClick={addTodo}>Add</IonButton>
+            <IonButton onClick={addMaterial}>Add</IonButton>
         </IonList>
     )
 }
 
-export default TodoView;
+export default MaterialView;
