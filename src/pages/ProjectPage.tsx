@@ -7,6 +7,7 @@ import { db } from '../firebaseConfig';
 import { Project } from './Home';
 import { pencilOutline } from 'ionicons/icons';
 import useAuthState from '../useAuthState';
+import TodoView from '../components/TodoView';
 
 interface Params { id: string };
 
@@ -18,11 +19,12 @@ const ProjectPage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthState();
   const userId = user?.uid
-
+  const projectRef = doc(db, 'users', userId ?? 'none', 'projects', id);
+  const [segment, setSegment] = useState("first");
 
   useEffect(() => {
     if (userId) {
-      const unsub = onSnapshot(doc(db, 'users', userId, 'projects', id), (doc) => {
+      const unsub = onSnapshot(projectRef, (doc) => {
         console.log("Current data: ", doc.data());
         setProject({ id: doc.id, ...doc.data() } as unknown as Project);
       });
@@ -35,13 +37,11 @@ const ProjectPage: React.FC = () => {
   }
 
   function confirm() {
-    const projectRef = doc(db, 'users', userId, 'projects', id);
     updateDoc(projectRef, { name: input.current?.value });
     setIsOpen(false);
   }
 
   function onIdeasChange(ideas: string) {
-    const projectRef = doc(db, 'users', userId, 'projects', id);
     updateDoc(projectRef, { ideas });
   }
 
@@ -113,7 +113,7 @@ const ProjectPage: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonSegment value="first">
+        <IonSegment value={segment} onIonChange={(e)=> setSegment(e.detail.value)}>
           <IonSegmentButton value="first" contentId="first">
             <IonLabel>Ideas</IonLabel>
           </IonSegmentButton>
@@ -134,7 +134,9 @@ const ProjectPage: React.FC = () => {
               onIonInput={(event) => onIdeasChange(event.detail.value ?? '')}
             ></IonTextarea>
           </IonSegmentContent>
-          <IonSegmentContent id="second">Second</IonSegmentContent>
+          <IonSegmentContent id="second">
+            <TodoView todos={project.todos} projectRef={projectRef}></TodoView>
+          </IonSegmentContent>
           <IonSegmentContent id="third">Third</IonSegmentContent>
         </IonSegmentView>
       </IonContent>

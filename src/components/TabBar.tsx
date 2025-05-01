@@ -2,6 +2,7 @@ import { IonTabBar, IonTabButton, IonIcon, IonLabel, useIonRouter } from "@ionic
 import { homeOutline, personOutline, addOutline } from "ionicons/icons";
 import { auth, db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
+import { Project } from "../pages/Home";
 
 interface Props {
     loggedIn: boolean
@@ -16,9 +17,11 @@ const TabBar = ({ loggedIn }: Props) => {
             const userId = user.uid;
             const projectsCollection = collection(db, `users/${userId}/projects`);
       
-            const newProjectData = {
+            const newProjectData: Omit<Project, 'id'> = {
               name: 'New Project',
-              status: 'Planning'
+              status: 'Planning',
+              todos: [],
+              ideas:''
             };
       
             const docRef = await addDoc(projectsCollection, newProjectData);

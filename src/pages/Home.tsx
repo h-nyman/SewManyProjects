@@ -6,11 +6,18 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import useAuthState from '../useAuthState';
 
+export interface Todo {
+  id: string
+  check: boolean
+  text: string
+}
+
 export interface Project {
   id: string
   status: 'Planning' | 'Ongoing' | 'Completed'
   name: string
   ideas: string
+  todos: Todo[]
 }
 
 const Tab1: React.FC = () => {
