@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import './Tab1.css';
 import ProjectCard from '../components/ProjectCard';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import useAuthState from '../useAuthState';
 
@@ -33,7 +33,6 @@ const Tab1: React.FC = () => {
   const userId = user?.uid;
 
   useEffect(() => {
-    const fetchProjects = async () => {
       try {
         if (userId) {
           setLoading(true);
@@ -41,12 +40,14 @@ const Tab1: React.FC = () => {
           const projectsCollection = collection(db, 'users', userId, 'projects');
           const q = query(projectsCollection);
 
-          const querySnapshot = await getDocs(q);
-          const projectList: Project[] = [];
-          querySnapshot.forEach((doc) => {
-            projectList.push({ id: doc.id, ...doc.data() } as unknown as Project);
-          });
-          setProjects(projectList);
+          const unsub = onSnapshot(q, snapshot => {
+            const projectList: Project[] = [];
+            snapshot.forEach((doc) => {
+              projectList.push({ id: doc.id, ...doc.data() } as unknown as Project);
+            });
+            setProjects(projectList);
+          })
+          return unsub
         }
       } catch (err: any) {
         setError(err.message);
@@ -54,9 +55,6 @@ const Tab1: React.FC = () => {
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchProjects();
   }, [userId]);
 
   if (loading) {
@@ -91,7 +89,7 @@ const Tab1: React.FC = () => {
             <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
           ))}
         </section>
-        
+
         <section>
           <h2>Planning</h2>
           {planningProjects.map((project) => (
