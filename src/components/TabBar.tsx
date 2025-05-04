@@ -1,5 +1,5 @@
 import { IonTabBar, IonTabButton, IonIcon, IonLabel, useIonRouter } from "@ionic/react";
-import { homeOutline, personOutline, addOutline } from "ionicons/icons";
+import { homeOutline, addOutline, informationOutline } from "ionicons/icons";
 import { auth, db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { Project } from "../pages/Home";
@@ -50,8 +50,8 @@ const TabBar = ({ loggedIn }: Props) => {
             <IonLabel>New Project</IonLabel>
         </IonTabButton>
         <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={personOutline} />
-            <IonLabel>Profile</IonLabel>
+            <IonIcon aria-hidden="true" icon={informationOutline} />
+            <IonLabel>Contact</IonLabel>
         </IonTabButton>
     </IonTabBar>
     )

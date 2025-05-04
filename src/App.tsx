@@ -8,7 +8,7 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import Tab1 from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
-import Tab3 from './pages/Profile';
+import Tab3 from './pages/AboutContact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Welcome from './pages/Welcome';

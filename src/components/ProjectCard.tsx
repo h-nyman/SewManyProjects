@@ -1,15 +1,13 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react"
+import { IonCard, IonCardHeader, IonCardTitle } from "@ionic/react"
 
 interface Props {
-    imgSrc: string
     projectName: string
     href: string
 }
 
-const ProjectCard = ({ imgSrc, projectName, href }: Props) => {
+const ProjectCard = ({ projectName, href }: Props) => {
     return (
         <IonCard href={href}>
-            <img src={imgSrc} />
             <IonCardHeader>
                 <IonCardTitle>{projectName}</IonCardTitle>
             </IonCardHeader>

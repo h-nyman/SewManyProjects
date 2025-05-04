@@ -1,8 +1,9 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonRouter, useIonToast } from '@ionic/react';
+import { IonButton, IonContent, IonInput, IonItem, IonLoading, IonPage, useIonRouter, useIonToast } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser, logOut } from '../firebaseConfig'
+import { loginUser } from '../firebaseConfig'
 import useAuthState from '../useAuthState';
+import './Login.css';
 
 const Login: React.FC = () => {
     const router = useIonRouter()
@@ -33,22 +34,26 @@ const Login: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Login</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonLoading message="Please wait..." duration={0} isOpen={busy} />
             <IonContent className="ion-padding">
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large" padding-bottom>Login</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonInput placeholder='Username' onIonInput={(e: any) => setUsername(e.target.value)} />
-                <IonInput type="password" placeholder='Password' onIonInput={(e: any) => setPassword(e.target.value)} />
-                <IonButton onClick={login}>Login</IonButton>
+                <img src="/Logo.png" alt="SMP Logo" className="logo" />
+                <IonItem fill="outline">
+                    <IonInput
+                        placeholder="Username"
+                        onIonInput={(e: any) => setUsername(e.target.value)}
+                    />
+                </IonItem>
 
+                <IonItem fill="outline">
+                    <IonInput
+                        type="password"
+                        placeholder="Password"
+                        onIonInput={(e: any) => setPassword(e.target.value)}
+                    />
+                </IonItem>
+                <div className="login-button" >
+                    <IonButton onClick={login}>Login</IonButton>
+                </div>
                 <p>
                     New here? <Link to={`register`}>Register a New Account</Link>
                 </p>

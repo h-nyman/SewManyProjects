@@ -1,7 +1,8 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonButton, IonContent, IonInput, IonItem, IonLoading, IonPage, useIonToast } from '@ionic/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../firebaseConfig';
+import './Register.css';
 
 const Register: React.FC = () => {
 
@@ -26,22 +27,21 @@ const Register: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Register</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonLoading message="Please wait..." duration={0} isOpen={busy} />
             <IonContent className="ion-padding">
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Register</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonInput placeholder='Username' onIonInput={(e: any) => setUsername(e.target.value)} />
-                <IonInput type="password" placeholder='Password' onIonInput={(e: any) => setPassword(e.target.value)} />
-                <IonInput type="password" placeholder='Confirm Password' onIonInput={(e: any) => setCPassword(e.target.value)} />
-                <IonButton onClick={registerUser}>Register</IonButton>
+                <img src="/Logo.png" alt="SMP Logo" className="logo" />
+                <IonItem fill="outline">
+                    <IonInput placeholder='Username' onIonInput={(e: any) => setUsername(e.target.value)} />
+                </IonItem>
+                <IonItem fill="outline">
+                    <IonInput type="password" placeholder='Password' onIonInput={(e: any) => setPassword(e.target.value)} />
+                </IonItem>
+                <IonItem fill="outline">
+                    <IonInput type="password" placeholder='Confirm Password' onIonInput={(e: any) => setCPassword(e.target.value)} />
+                </IonItem>
+                <div className="register-button" >
+                    <IonButton onClick={registerUser}>Register</IonButton>
+                </div>
                 <p>
                     Already have account <Link to={`login`}>Login</Link>
                 </p>

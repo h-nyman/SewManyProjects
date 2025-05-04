@@ -1,4 +1,4 @@
-import { IonAvatar, IonButton, IonContent, IonHeader, IonItem, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab3.css';
 import { logOut } from '../firebaseConfig';
 
@@ -13,15 +13,15 @@ const Tab3: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar color="primary">
-            <IonTitle size="large">About</IonTitle>
+            <IonTitle size="large">About & Contact</IonTitle>
           </IonToolbar>
         </IonHeader>
         <h2> Sew Many Projects</h2>
         <p className="ion-padding">Welcome to Sew Many Projects, your go-to app for managing and organizing all your sewing creations! Whether you're just starting out or an experienced seamstress, Sew Many Projects is designed to simplify the way you plan, track, and complete your sewing endeavors.</p>
-        <h2>Our Mission:</h2>
-        <p className="ion-padding">At Sew Many Projects, we are passionate about helping you turn your creative ideas into beautifully finished pieces. Our mission is to provide you with a comprehensive tool that makes managing your sewing projects a breeze.</p>
-        <div className="center-container">
-          <IonButton className="centered-button" onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
+        <h2>Contact:</h2>
+        <p className="ion-padding">sewmanyprojects@example.com</p>
+        <div className="logout-button">
+          <IonButton  onClick={logOut} routerLink='/welcome' >Sign out</IonButton>
         </div>
       </IonContent>
     </IonPage>

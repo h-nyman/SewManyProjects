@@ -84,23 +84,23 @@ const Tab1: React.FC = () => {
         </IonHeader>
 
         <section>
-          <h2>Ongoing</h2>
+          <h2 className="underlined">Ongoing</h2>
           {ongoingProjects.map((project) => (
-            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+            <ProjectCard key={project.id} projectName={project.name} href={`/projects/${project.id}`} />
           ))}
         </section>
 
         <section>
-          <h2>Planning</h2>
+          <h2 className="underlined">Planning</h2>
           {planningProjects.map((project) => (
-            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+            <ProjectCard key={project.id} projectName={project.name} href={`/projects/${project.id}`} />
           ))}
         </section>
 
         <section>
-          <h2>Completed</h2>
+          <h2 className="underlined">Completed</h2>
           {completedProjects.map((project) => (
-            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+            <ProjectCard key={project.id} projectName={project.name} href={`/projects/${project.id}`} />
           ))}
         </section>
       </IonContent>
