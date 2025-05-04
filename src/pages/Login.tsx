@@ -1,12 +1,13 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
-import { useState } from 'react';
+import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar, useIonRouter, useIonToast } from '@ionic/react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser, logOut } from '../firebaseConfig'
 import useAuthState from '../useAuthState';
 
 const Login: React.FC = () => {
+    const router = useIonRouter()
 
-    const [busy, setBusy] =useState(false)
+    const [busy, setBusy] = useState(false)
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -24,9 +25,11 @@ const Login: React.FC = () => {
         setBusy(false)
     }
 
-    if (authState.user) {
-        return <IonButton onClick={logOut}>Sign out</IonButton>
-    }
+    useEffect(() => {
+        if (authState.user) {
+            router.push('/tab1')
+        }
+    }, [authState.user, router])
 
     return (
         <IonPage>

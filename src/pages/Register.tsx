@@ -5,7 +5,7 @@ import { createUser } from '../firebaseConfig';
 
 const Register: React.FC = () => {
 
-    const [busy, setBusy] =useState(false)
+    const [busy, setBusy] = useState(false)
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -15,12 +15,12 @@ const Register: React.FC = () => {
 
     async function registerUser() {
         if (password !== cpassword) {
-            present({message:"Passwords don't match", duration: 3000})
+            present({ message: "Passwords don't match", duration: 3000 })
             return
         }
         setBusy(true)
         const res = await createUser(username, password)
-        present({message:`${res ? 'Register success' : 'Register failed'}`, duration: 3000})
+        present({ message: `${res ? 'Register success' : 'Register failed'}`, duration: 3000 })
         setBusy(false)
     }
 
