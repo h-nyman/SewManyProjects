@@ -7,22 +7,22 @@ import { useEffect, useState } from 'react';
 import useAuthState from '../useAuthState';
 
 export interface Todo {
-  check: boolean
-  text: string
+  check: boolean;
+  text: string;
 }
 
 export interface Material {
-  check: boolean
-  text: string
+  check: boolean;
+  text: string;
 }
 
 export interface Project {
-  id: string
-  status: 'Planning' | 'Ongoing' | 'Completed'
-  name: string
-  ideas: string
-  todosMap: Record<string,Todo>
-  materialMap: Record<string,Material>
+  id: string;
+  status: 'Planning' | 'Ongoing' | 'Completed';
+  name: string;
+  ideas: string;
+  todosMap: Record<string, Todo>;
+  materialMap: Record<string, Material>;
 }
 
 const Tab1: React.FC = () => {
@@ -39,7 +39,6 @@ const Tab1: React.FC = () => {
           setLoading(true);
 
           const projectsCollection = collection(db, 'users', userId, 'projects');
-
           const q = query(projectsCollection);
 
           const querySnapshot = await getDocs(q);
@@ -48,7 +47,7 @@ const Tab1: React.FC = () => {
             projectList.push({ id: doc.id, ...doc.data() } as unknown as Project);
           });
           setProjects(projectList);
-        };
+        }
       } catch (err: any) {
         setError(err.message);
         console.error("Error fetching projects:", err);
@@ -68,22 +67,44 @@ const Tab1: React.FC = () => {
     return <p>Error: {error}</p>;
   }
 
+  const planningProjects = projects.filter(project => project.status === 'Planning');
+  const ongoingProjects = projects.filter(project => project.status === 'Ongoing');
+  const completedProjects = projects.filter(project => project.status === 'Completed');
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
+      <IonHeader color="primary">
+        <IonToolbar color="primary">
           <IonTitle>My projects</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
+        <IonHeader color="primary" collapse="condense">
+          <IonToolbar color="primary">
             <IonTitle size="large">My projects</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
-        ))}
+
+        <section>
+          <h2>Ongoing</h2>
+          {ongoingProjects.map((project) => (
+            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+          ))}
+        </section>
+        
+        <section>
+          <h2>Planning</h2>
+          {planningProjects.map((project) => (
+            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+          ))}
+        </section>
+
+        <section>
+          <h2>Completed</h2>
+          {completedProjects.map((project) => (
+            <ProjectCard key={project.id} imgSrc="https://ionicframework.com/docs/img/demos/card-media.png" projectName={project.name} href={`/projects/${project.id}`} />
+          ))}
+        </section>
       </IonContent>
     </IonPage>
   );

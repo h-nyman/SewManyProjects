@@ -1,3 +1,13 @@
+ion-header {
+  --background: #4A4E69;
+  --color: #F6F8FC;
+}
+
+ion-toolbar {
+  background-color: #4A4E69;
+  color: #F6F8FC;
+}
+
 .center-container {
     display: flex;
     justify-content: center;

@@ -42,8 +42,8 @@ const Login: React.FC = () => {
                         <IonTitle size="large" padding-bottom>Login</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonInput placeholder='Username' onIonChange={(e: any) => setUsername(e.target.value)} />
-                <IonInput type="password" placeholder='Password' onIonChange={(e: any) => setPassword(e.target.value)} />
+                <IonInput placeholder='Username' onIonInput={(e: any) => setUsername(e.target.value)} />
+                <IonInput type="password" placeholder='Password' onIonInput={(e: any) => setPassword(e.target.value)} />
                 <IonButton onClick={login}>Login</IonButton>
 
                 <p>

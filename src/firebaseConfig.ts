@@ -15,10 +15,7 @@ const app = initializeApp(config);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export async function loginUser(username: string, password: string) {
-    
-    const email= `${username}@mailinator.com`
-    
+export async function loginUser(email: string, password: string) {
     try {
         const res = await signInWithEmailAndPassword(auth, email, password)
 
@@ -31,10 +28,7 @@ export async function loginUser(username: string, password: string) {
     
 }
 
-export async function createUser(username: string, password: string) {
-    
-    const email= `${username}@mailinator.com`
-    
+export async function createUser(email: string, password: string) {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password)
 

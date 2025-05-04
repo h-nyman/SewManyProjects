@@ -49,7 +49,7 @@ const ProjectPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonBackButton defaultHref="/tab1" />
           </IonButtons>
@@ -57,8 +57,8 @@ const ProjectPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
+        <IonHeader id="project-header" collapse="condense">
+          <IonToolbar color="primary">
             <IonGrid>
               <IonRow className="ion-align-items-center">
                 <IonCol size="auto">
@@ -71,8 +71,8 @@ const ProjectPage: React.FC = () => {
                 </IonCol>
               </IonRow>
             </IonGrid>
-            <IonList>
-              <IonItem>
+            <IonList id="project-status">
+              <IonItem id="project-item">
                 <IonSelect aria-label="Status" placeholder="Select status" value={project.status} onIonChange={event => {
                   if (userId) {
                     const projectRef = doc(db, 'users', userId, 'projects', id);
@@ -87,9 +87,9 @@ const ProjectPage: React.FC = () => {
             </IonList>
           </IonToolbar>
         </IonHeader>
-        <IonModal ref={modal} isOpen={isOpen}>
+        <IonModal color="primary" ref={modal} isOpen={isOpen}>
           <IonHeader>
-            <IonToolbar>
+            <IonToolbar color="primary">
               <IonButtons slot="start">
                 <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
               </IonButtons>
@@ -114,20 +114,21 @@ const ProjectPage: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonSegment value={segment} onIonChange={(e)=> setSegment(e.detail.value?.toString() ?? "first")}>
-          <IonSegmentButton value="first" contentId="first">
+        <IonSegment value={segment} onIonChange={(e) => setSegment(e.detail.value?.toString() ?? "first")}>
+          <IonSegmentButton value="first" contentId="first" className={segment === "first" ? "segment-button-checked" : ""}>
             <IonLabel>Ideas</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="second" contentId="second">
+          <IonSegmentButton value="second" contentId="second" className={segment === "second" ? "segment-button-checked" : ""}>
             <IonLabel>To-do's</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="third" contentId="third">
+          <IonSegmentButton value="third" contentId="third" className={segment === "third" ? "segment-button-checked" : ""}>
             <IonLabel>Material</IonLabel>
           </IonSegmentButton>
         </IonSegment>
         <IonSegmentView>
           <IonSegmentContent id="first">
             <IonTextarea
+              className="ion-padding"
               placeholder="Type something here"
               autoGrow={true}
               value={project.ideas}

@@ -1,0 +1,59 @@
+ion-header {
+    --background: #4A4E69;
+    --color: #F6F8FC;
+}
+
+ion-toolbar {
+    background-color: #4A4E69;
+    color: #F6F8FC;
+}
+
+#project-header {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+}
+
+#project-status,
+#project-item {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+}
+
+ion-select {
+    --placeholder-color: var(--ion-color-primary-contrast);
+    --color: var(--ion-color-primary-contrast);
+}
+
+ion-select::part(text) {
+    color: var(--ion-color-primary-contrast);
+}
+
+ion-select::part(icon) {
+    color: var(--ion-color-primary-contrast);
+    opacity: 1;
+  }
+ion-segment,
+ion-segment-button {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+}
+
+
+ion-segment {
+    --background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+}
+
+ion-segment-button::part(native) {
+    background: var(--ion-color-primary-tint);
+    color: var(--ion-color-primary-contrast);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+ion-segment-button.segment-button-checked::part(native) {
+    background: var(--ion-color-primary-contrast);
+    color: var(--ion-color-primary);
+}
