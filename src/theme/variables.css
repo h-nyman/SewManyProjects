@@ -74,9 +74,6 @@ ion-toolbar {
 
 ion-tab-bar {
     --ion-tab-bar-background: #4A4E69;
-    /* Background color of the tab bar */
     --ion-tab-bar-color: #F6F8FC;
-    /* Default color of the tab icons */
     --ion-tab-bar-color-selected: #F6F8FC;
-    /* Color of the selected tab icon */
 }
