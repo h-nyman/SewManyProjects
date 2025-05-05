@@ -31,7 +31,7 @@ const Register: React.FC = () => {
             <IonContent className="ion-padding">
                 <img src="/Logo.png" alt="SMP Logo" className="logo" />
                 <IonItem fill="outline">
-                    <IonInput placeholder='Username' onIonInput={(e: any) => setUsername(e.target.value)} />
+                    <IonInput placeholder='E-mail adress' onIonInput={(e: any) => setUsername(e.target.value)} />
                 </IonItem>
                 <IonItem fill="outline">
                     <IonInput type="password" placeholder='Password' onIonInput={(e: any) => setPassword(e.target.value)} />

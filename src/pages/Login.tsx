@@ -39,7 +39,7 @@ const Login: React.FC = () => {
                 <img src="/Logo.png" alt="SMP Logo" className="logo" />
                 <IonItem fill="outline">
                     <IonInput
-                        placeholder="Username"
+                        placeholder="E-mail address"
                         onIonInput={(e: any) => setUsername(e.target.value)}
                     />
                 </IonItem>
